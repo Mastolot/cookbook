@@ -196,14 +196,17 @@
                     }
                 });
 
-                const pourcentage = Math.round((ingredientsTrouves.length / ingredientsRecette.length) * 100);
+                // Ne garder que les recettes qui ont au moins un ingrédient correspondant
+                if (ingredientsTrouves.length > 0) {
+                    const pourcentage = Math.round((ingredientsTrouves.length / ingredientsRecette.length) * 100);
 
-                resultats.push({
-                    recette,
-                    pourcentage,
-                    ingredientsTrouves,
-                    ingredientsManquants
-                });
+                    resultats.push({
+                        recette,
+                        pourcentage,
+                        ingredientsTrouves,
+                        ingredientsManquants
+                    });
+                }
             });
 
             // Trier par pourcentage décroissant
