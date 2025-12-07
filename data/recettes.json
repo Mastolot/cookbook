@@ -1,0 +1,86 @@
+{
+  "recettes": [
+    {
+      "id": 1,
+      "nom": "Lasagnes au Saumon et Courgettes",
+      "description": "Des lasagnes crémeuses avec du saumon frais, des courgettes snackées et une béchamel citronnée au zaatar",
+      "image": "images/lasagnes-saumon.jpg",
+      "tempsPréparation": 30,
+      "tempsCuisson": 45,
+      "portions": 6,
+      "difficulté": "moyen",
+      "catégorie": "plat",
+      "ingrédients": [
+        {"nom": "feuilles de lasagnes", "quantité": 1, "unité": "paquet"},
+        {"nom": "pavés de saumon", "quantité": 2, "unité": "gros"},
+        {"nom": "courgettes", "quantité": 2, "unité": "pièces"},
+        {"nom": "échalotes", "quantité": 2, "unité": "pièces"},
+        {"nom": "citron", "quantité": 1, "unité": "pièce"},
+        {"nom": "crème fraîche entière épaisse", "quantité": 120, "unité": "g"},
+        {"nom": "ciboulette", "quantité": 1, "unité": "bouquet"},
+        {"nom": "mozzarella râpée", "quantité": 150, "unité": "g"},
+        {"nom": "beurre", "quantité": 50, "unité": "g"},
+        {"nom": "farine", "quantité": 50, "unité": "g"},
+        {"nom": "lait", "quantité": 500, "unité": "ml"},
+        {"nom": "zaatar", "quantité": 2, "unité": "c. à s."},
+        {"nom": "sel", "quantité": 1, "unité": "c. à s."},
+        {"nom": "huile d'olive", "quantité": 1, "unité": "filet"},
+        {"nom": "ail en poudre", "quantité": 1, "unité": "pincée"}
+      ],
+      "étapes": [
+        "Faites chauffer un filet d'huile d'olive dans une poêle et déposez-y les pavés de saumon. Faites-les cuire des deux côtés jusqu'à obtention d'une peau bien croustillante.",
+        "Déposez le saumon dans une assiette creuse. Ajoutez la ciboulette ciselée et la crème fraîche. Écrasez le tout à la fourchette pour obtenir une farce.",
+        "Taillez très finement les courgettes et émincez les échalotes. Faites-les revenir dans la même poêle que le saumon sans la laver pour profiter des sucs de cuisson, à feu assez fort pour les snacker. Assaisonnez généreusement de sel, d'ail en poudre et de zaatar, puis réservez.",
+        "Réalisez la béchamel citronnée : faites fondre le beurre puis ajoutez la farine en une fois et fouettez. Incorporez ensuite le lait tout en mélangeant, ainsi que le jus de citron et une pointe de zaatar.",
+        "Étalez un peu de béchamel dans le fond d'un plat à gratin. Déposez des feuilles de lasagne, puis des courgettes et de la farce au saumon. Ajoutez à nouveau des feuilles de lasagne, de la béchamel, des courgettes et du saumon. Renouvelez l'opération jusqu'à épuisement des ingrédients en terminant par la béchamel.",
+        "Parsemez de mozzarella râpée puis enfournez à 180°C pour 45 minutes. Servez bien chaud quand les lasagnes sont bien dorées."
+      ],
+      "tags": ["four", "poisson", "italien", "crémeux", "citron"]
+    },
+    {
+      "id": 2,
+      "nom": "Paneer Butter Masala",
+      "description": "Curry indien crémeux et onctueux avec des cubes de paneer dans une sauce riche à base de tomates, beurre, noix de cajou et épices du nord de l'Inde",
+      "image": "images/paneer-butter-masala.jpg",
+      "tempsPréparation": 15,
+      "tempsCuisson": 30,
+      "portions": 4,
+      "difficulté": "moyen",
+      "catégorie": "plat",
+      "ingrédients": [
+        {"nom": "huile", "quantité": 1, "unité": "c. à s."},
+        {"nom": "cardamome verte", "quantité": 2, "unité": "gousses"},
+        {"nom": "oignon", "quantité": 130, "unité": "g"},
+        {"nom": "gingembre frais", "quantité": 10, "unité": "g"},
+        {"nom": "gousses d'ail", "quantité": 6, "unité": "pièces"},
+        {"nom": "tomates", "quantité": 350, "unité": "g"},
+        {"nom": "noix de cajou", "quantité": 15, "unité": "pièces"},
+        {"nom": "sel", "quantité": 1, "unité": "c. à c."},
+        {"nom": "piment du Cachemire en poudre", "quantité": 1, "unité": "c. à c."},
+        {"nom": "garam masala", "quantité": 1, "unité": "c. à c."},
+        {"nom": "coriandre en poudre", "quantité": 1, "unité": "c. à c."},
+        {"nom": "beurre non salé", "quantité": 2, "unité": "c. à s."},
+        {"nom": "feuille de laurier", "quantité": 1, "unité": "pièce"},
+        {"nom": "bâton de cannelle", "quantité": 1, "unité": "morceau de 5 cm"},
+        {"nom": "clous de girofle", "quantité": 3, "unité": "pièces"},
+        {"nom": "paneer", "quantité": 300, "unité": "g"},
+        {"nom": "kasuri methi", "quantité": 0.5, "unité": "c. à s."},
+        {"nom": "crème épaisse", "quantité": 60, "unité": "ml"},
+        {"nom": "sucre", "quantité": 1, "unité": "c. à c."},
+        {"nom": "coriandre fraîche", "quantité": 2, "unité": "c. à s."}
+      ],
+      "étapes": [
+        "Faire chauffer l'huile dans une poêle. Ajouter les cardamomes, oignons, gingembre et ail. Faire revenir 4-5 minutes jusqu'à ce que les oignons soient translucides.",
+        "Ajouter les tomates, le sel et les noix de cajou. Couvrir et cuire jusqu'à ce que les tomates soient complètement fondues (7-8 minutes).",
+        "Incorporer le piment en poudre, la coriandre en poudre et le garam masala. Faire revenir 3-4 minutes jusqu'à ce que les épices soient parfumées. Laisser refroidir.",
+        "Transférer le mélange dans un blender avec 250 ml d'eau froide. Mixer jusqu'à obtenir une purée très lisse. Passer au tamis pour une texture ultra-soyeuse.",
+        "Dans la même poêle, faire fondre le beurre à feu doux. Ajouter la feuille de laurier, la cannelle et les clous de girofle. Laisser grésiller 30 secondes.",
+        "Verser la purée tamisée et ajouter 125 ml d'eau. Porter à ébullition puis laisser mijoter à couvert 10-12 minutes en remuant régulièrement jusqu'à épaississement. La sauce doit être légèrement épaisse avec des traces de gras en surface.",
+        "Retirer les épices entières. Ajouter le kasuri methi écrasé entre les paumes, le sucre et ajuster le sel et le garam masala selon le goût.",
+        "Incorporer la crème, puis ajouter les cubes de paneer. Couvrir et cuire 2-3 minutes à feu doux jusqu'à ce que le paneer soit bien chaud. Éteindre le feu.",
+        "Garnir avec un filet de crème et de la coriandre fraîche ciselée. Servir chaud avec du naan, du riz basmati ou des chapatis."
+      ],
+      "tags": ["indien", "végétarien", "crémeux", "épicé", "nord-indien"]
+    }
+  ]
+}

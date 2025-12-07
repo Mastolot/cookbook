@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Recettes - Accueil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Crimson+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">Mes Recettes</a>
+            <nav class="nav">
+                <a href="index.html" class="nav-link active">Accueil</a>
+                <a href="recettes.html" class="nav-link">Recettes</a>
+                <a href="recherche.html" class="nav-link">Recherche par Ingrédients</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Mes Recettes</h1>
+            <p>Toutes mes recettes préférées en un seul endroit</p>
+            <a href="recettes.html" class="btn btn-primary">Voir toutes les recettes</a>
+        </div>
+    </section>
+
+    <!-- Section Recettes -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Mes recettes</h2>
+            <div id="recipes-container" class="recipes-grid">
+                <!-- Les recettes seront chargées ici par JavaScript -->
+            </div>
+            <div class="text-center mt-xl">
+                <a href="recettes.html" class="btn btn-secondary">Voir toutes les recettes</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Recherche Rapide -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Trouver une recette par ingrédients</h2>
+            <p class="section-text">
+                Vous avez des ingrédients et vous ne savez pas quoi cuisiner ? 
+                Utilisez notre recherche par ingrédients pour trouver des recettes adaptées !
+            </p>
+            <div class="text-center">
+                <a href="recherche.html" class="btn btn-primary">Rechercher</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Mes Recettes</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Charger et afficher les recettes sur la page d'accueil
+        document.addEventListener('DOMContentLoaded', async () => {
+            const recettes = await chargerRecettes();
+            if (recettes) {
+                afficherRecettes(recettes.recettes, 'recipes-container');
+            }
+        });
+    </script>
+</body>
+</html>

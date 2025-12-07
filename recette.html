@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recette - Mes Recettes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Crimson+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">Mes Recettes</a>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Accueil</a>
+                <a href="recettes.html" class="nav-link">Recettes</a>
+                <a href="recherche.html" class="nav-link">Recherche par Ingrédients</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" style="padding-top: 2rem;">
+        <!-- Bouton retour -->
+        <a href="recettes.html" class="back-button">← Retour aux recettes</a>
+
+        <!-- Contenu de la recette chargé dynamiquement -->
+        <div id="recipe-content">
+            <!-- Le contenu sera inséré ici par JavaScript -->
+        </div>
+
+        <!-- Message d'erreur si la recette n'existe pas -->
+        <div id="error-message" class="error-message" style="display: none;">
+            <p>Recette introuvable</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Mes Recettes</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Charger et afficher la recette spécifique
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Récupérer l'ID depuis l'URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const recipeId = parseInt(urlParams.get('id'));
+
+            if (!recipeId) {
+                document.getElementById('error-message').style.display = 'block';
+                return;
+            }
+
+            // Charger les recettes
+            const data = await chargerRecettes();
+            if (!data) {
+                document.getElementById('error-message').style.display = 'block';
+                return;
+            }
+
+            // Trouver la recette correspondante
+            const recette = data.recettes.find(r => r.id === recipeId);
+            
+            if (!recette) {
+                document.getElementById('error-message').style.display = 'block';
+                return;
+            }
+
+            // Afficher la recette
+            afficherRecetteComplete(recette);
+
+            // Charger l'état des checkboxes depuis localStorage
+            chargerEtatCheckboxes(recipeId);
+        });
+
+        // Fonction pour afficher la recette complète
+        function afficherRecetteComplete(recette) {
+            const tempsTotal = recette.tempsPréparation + recette.tempsCuisson;
+            
+            const html = `
+                <div class="recipe-header">
+                    <h1 class="page-title text-center">${recette.nom}</h1>
+                    
+                    <div class="recipe-badges text-center">
+                        <span class="badge badge-category">${recette.catégorie}</span>
+                        <span class="badge badge-${recette.difficulté}">${recette.difficulté}</span>
+                        ${recette.tags.map(tag => `<span class="badge badge-category">${tag}</span>`).join('')}
+                    </div>
+                    
+                    <p class="recipe-description-full">${recette.description}</p>
+                    
+                    <div class="recipe-main-image">
+                        <img src="${recette.image}" alt="${recette.nom}" onerror="this.parentElement.innerHTML='${recette.nom}'">
+                    </div>
+                    
+                    <div class="recipe-info">
+                        <div class="info-item">
+                            <div class="info-icon">⏱️</div>
+                            <div class="info-label">Préparation</div>
+                            <div class="info-value">${formatTemps(recette.tempsPréparation)}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">🔥</div>
+                            <div class="info-label">Cuisson</div>
+                            <div class="info-value">${formatTemps(recette.tempsCuisson)}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">👥</div>
+                            <div class="info-label">Portions</div>
+                            <div class="info-value">${recette.portions} personnes</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">📊</div>
+                            <div class="info-label">Difficulté</div>
+                            <div class="info-value">${recette.difficulté}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recipe-body">
+                    <div class="ingredients-section">
+                        <h2>Ingrédients</h2>
+                        <ul class="ingredients-list">
+                            ${recette.ingrédients.map((ing, index) => `
+                                <li class="ingredient-item">
+                                    <input type="checkbox" class="ingredient-checkbox" id="ing-${index}" data-recipe-id="${recette.id}" data-index="${index}">
+                                    <label for="ing-${index}" class="ingredient-text">
+                                        ${ing.quantité} ${ing.unité} ${ing.nom}
+                                    </label>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+
+                    <div class="instructions-section">
+                        <h2>Préparation</h2>
+                        <ol class="steps-list">
+                            ${recette.étapes.map(etape => `<li class="step-item">${etape}</li>`).join('')}
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button onclick="window.print()" class="btn btn-primary">Imprimer la recette</button>
+                </div>
+            `;
+
+            document.getElementById('recipe-content').innerHTML = html;
+
+            // Ajouter les événements sur les checkboxes
+            document.querySelectorAll('.ingredient-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const label = this.nextElementSibling;
+                    if (this.checked) {
+                        label.classList.add('checked');
+                    } else {
+                        label.classList.remove('checked');
+                    }
+                    
+                    // Sauvegarder l'état dans localStorage
+                    sauvegarderEtatCheckboxes(recette.id);
+                });
+            });
+        }
+
+        // Fonction pour sauvegarder l'état des checkboxes
+        function sauvegarderEtatCheckboxes(recipeId) {
+            const checkboxes = document.querySelectorAll('.ingredient-checkbox');
+            const etat = {};
+            checkboxes.forEach((cb, index) => {
+                etat[index] = cb.checked;
+            });
+            localStorage.setItem(`recipe-${recipeId}-checkboxes`, JSON.stringify(etat));
+        }
+
+        // Fonction pour charger l'état des checkboxes
+        function chargerEtatCheckboxes(recipeId) {
+            const etat = localStorage.getItem(`recipe-${recipeId}-checkboxes`);
+            if (etat) {
+                const etatObj = JSON.parse(etat);
+                Object.keys(etatObj).forEach(index => {
+                    const checkbox = document.getElementById(`ing-${index}`);
+                    if (checkbox && etatObj[index]) {
+                        checkbox.checked = true;
+                        checkbox.nextElementSibling.classList.add('checked');
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

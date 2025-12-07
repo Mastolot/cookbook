@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recherche par Ingrédients - Mes Recettes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Crimson+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">Mes Recettes</a>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Accueil</a>
+                <a href="recettes.html" class="nav-link">Recettes</a>
+                <a href="recherche.html" class="nav-link active">Recherche par Ingrédients</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Titre de la page -->
+        <h1 class="page-title text-center" style="margin-top: 3rem;">Recherche par ingrédients</h1>
+
+        <!-- Section sélection ingrédients -->
+        <div class="ingredient-search-wrapper">
+            <div class="autocomplete-wrapper">
+                <input 
+                    type="text" 
+                    id="ingredient-input" 
+                    class="autocomplete-input"
+                    placeholder="Tapez un ingrédient (ex: tomates, oignons...)"
+                    autocomplete="off"
+                >
+                <div id="autocomplete-list" class="autocomplete-list"></div>
+            </div>
+
+            <!-- Liste des ingrédients sélectionnés -->
+            <div id="selected-ingredients" class="selected-ingredients"></div>
+
+            <!-- Boutons d'action -->
+            <div class="search-actions">
+                <button id="search-button" class="btn btn-primary">Trouver des recettes</button>
+                <button id="clear-button" class="btn btn-secondary">Effacer</button>
+            </div>
+        </div>
+
+        <!-- Section résultats -->
+        <div id="search-results" class="search-results"></div>
+
+        <!-- Message si aucun résultat -->
+        <div id="no-results" class="no-results" style="display: none;">
+            <p>Aucune recette trouvée avec ces ingrédients</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Mes Recettes</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        let tousLesIngredients = [];
+        let ingredientsSelectionnes = [];
+        let toutesLesRecettes = [];
+
+        // Charger les données au chargement de la page
+        document.addEventListener('DOMContentLoaded', async () => {
+            const data = await chargerRecettes();
+            if (data) {
+                toutesLesRecettes = data.recettes;
+                tousLesIngredients = extraireIngredients(data.recettes);
+            }
+
+            // Événements
+            document.getElementById('ingredient-input').addEventListener('input', gererAutocompletion);
+            document.getElementById('search-button').addEventListener('click', rechercherRecettes);
+            document.getElementById('clear-button').addEventListener('click', effacerRecherche);
+
+            // Fermer l'autocomplétion si clic ailleurs
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.autocomplete-wrapper')) {
+                    document.getElementById('autocomplete-list').classList.remove('active');
+                }
+            });
+        });
+
+        // Fonction pour gérer l'autocomplétion
+        function gererAutocompletion(e) {
+            const texte = e.target.value.toLowerCase();
+            const liste = document.getElementById('autocomplete-list');
+
+            if (texte.length < 2) {
+                liste.classList.remove('active');
+                return;
+            }
+
+            // Filtrer les ingrédients
+            const suggestions = tousLesIngredients.filter(ing => 
+                ing.toLowerCase().includes(texte) && 
+                !ingredientsSelectionnes.includes(ing)
+            );
+
+            if (suggestions.length === 0) {
+                liste.classList.remove('active');
+                return;
+            }
+
+            // Afficher les suggestions
+            liste.innerHTML = suggestions.slice(0, 10).map(ing => 
+                `<div class="autocomplete-item" data-ingredient="${ing}">${ing}</div>`
+            ).join('');
+
+            liste.classList.add('active');
+
+            // Ajouter événements sur les suggestions
+            liste.querySelectorAll('.autocomplete-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    ajouterIngredient(item.dataset.ingredient);
+                    document.getElementById('ingredient-input').value = '';
+                    liste.classList.remove('active');
+                });
+            });
+        }
+
+        // Fonction pour ajouter un ingrédient
+        function ajouterIngredient(ingredient) {
+            if (!ingredientsSelectionnes.includes(ingredient)) {
+                ingredientsSelectionnes.push(ingredient);
+                afficherIngredientsSelectionnes();
+            }
+        }
+
+        // Fonction pour afficher les ingrédients sélectionnés
+        function afficherIngredientsSelectionnes() {
+            const container = document.getElementById('selected-ingredients');
+            container.innerHTML = ingredientsSelectionnes.map(ing => `
+                <div class="selected-ingredient">
+                    ${ing}
+                    <button class="remove-ingredient" data-ingredient="${ing}">×</button>
+                </div>
+            `).join('');
+
+            // Événements pour supprimer
+            container.querySelectorAll('.remove-ingredient').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    ingredientsSelectionnes = ingredientsSelectionnes.filter(i => i !== btn.dataset.ingredient);
+                    afficherIngredientsSelectionnes();
+                });
+            });
+        }
+
+        // Fonction pour rechercher les recettes
+        function rechercherRecettes() {
+            if (ingredientsSelectionnes.length === 0) {
+                alert('Veuillez sélectionner au moins un ingrédient');
+                return;
+            }
+
+            const resultats = calculerCorrespondances(toutesLesRecettes, ingredientsSelectionnes);
+            
+            if (resultats.length === 0) {
+                document.getElementById('search-results').innerHTML = '';
+                document.getElementById('no-results').style.display = 'block';
+                return;
+            }
+
+            document.getElementById('no-results').style.display = 'none';
+            afficherResultats(resultats);
+        }
+
+        // Fonction pour calculer les correspondances
+        function calculerCorrespondances(recettes, ingredientsRecherches) {
+            const resultats = [];
+
+            recettes.forEach(recette => {
+                const ingredientsRecette = recette.ingrédients.map(i => i.nom.toLowerCase());
+                const ingredientsTrouves = [];
+                const ingredientsManquants = [];
+
+                ingredientsRecette.forEach(ing => {
+                    const trouve = ingredientsRecherches.some(search => 
+                        ing.includes(search.toLowerCase())
+                    );
+                    if (trouve) {
+                        ingredientsTrouves.push(ing);
+                    } else {
+                        ingredientsManquants.push(ing);
+                    }
+                });
+
+                const pourcentage = Math.round((ingredientsTrouves.length / ingredientsRecette.length) * 100);
+
+                resultats.push({
+                    recette,
+                    pourcentage,
+                    ingredientsTrouves,
+                    ingredientsManquants
+                });
+            });
+
+            // Trier par pourcentage décroissant
+            return resultats.sort((a, b) => b.pourcentage - a.pourcentage);
+        }
+
+        // Fonction pour afficher les résultats
+        function afficherResultats(resultats) {
+            const container = document.getElementById('search-results');
+            
+            container.innerHTML = resultats.map(resultat => {
+                const { recette, pourcentage, ingredientsManquants } = resultat;
+                
+                let badgeClass = 'badge-match-low';
+                if (pourcentage > 70) badgeClass = 'badge-match-high';
+                else if (pourcentage >= 50) badgeClass = 'badge-match-medium';
+
+                return `
+                    <div class="search-result-card" onclick="window.location.href='recette.html?id=${recette.id}'">
+                        <div class="result-header">
+                            <div>
+                                <h3 class="result-title">${recette.nom}</h3>
+                                <div class="recipe-badges">
+                                    <span class="badge ${badgeClass}">Match ${pourcentage}%</span>
+                                    <span class="badge badge-category">${recette.catégorie}</span>
+                                    <span class="badge badge-${recette.difficulté}">${recette.difficulté}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="recipe-description">${recette.description}</p>
+                        ${ingredientsManquants.length > 0 ? `
+                            <div class="missing-ingredients">
+                                <div class="missing-ingredients-title">Ingrédients manquants :</div>
+                                <div class="missing-ingredients-list">${ingredientsManquants.slice(0, 5).join(', ')}${ingredientsManquants.length > 5 ? '...' : ''}</div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Fonction pour effacer la recherche
+        function effacerRecherche() {
+            ingredientsSelectionnes = [];
+            afficherIngredientsSelectionnes();
+            document.getElementById('ingredient-input').value = '';
+            document.getElementById('search-results').innerHTML = '';
+            document.getElementById('no-results').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toutes les Recettes - Mes Recettes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Crimson+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header / Navigation -->
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">Mes Recettes</a>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Accueil</a>
+                <a href="recettes.html" class="nav-link active">Recettes</a>
+                <a href="recherche.html" class="nav-link">Recherche par Ingrédients</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Titre de la page -->
+        <h1 class="page-title text-center" style="margin-top: 3rem;">Toutes les recettes</h1>
+
+        <!-- Barre de filtres -->
+        <div class="filters">
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label for="filter-category">Catégorie</label>
+                    <select id="filter-category">
+                        <option value="">Toutes</option>
+                        <option value="entrée">Entrée</option>
+                        <option value="plat">Plat</option>
+                        <option value="dessert">Dessert</option>
+                        <option value="accompagnement">Accompagnement</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-difficulty">Difficulté</label>
+                    <select id="filter-difficulty">
+                        <option value="">Toutes</option>
+                        <option value="facile">Facile</option>
+                        <option value="moyen">Moyen</option>
+                        <option value="difficile">Difficile</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-time">Temps total</label>
+                    <select id="filter-time">
+                        <option value="">Tous</option>
+                        <option value="30">< 30 min</option>
+                        <option value="60">30-60 min</option>
+                        <option value="60+">> 60 min</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-search">Recherche</label>
+                    <input type="text" id="filter-search" placeholder="Nom de la recette...">
+                </div>
+            </div>
+        </div>
+
+        <!-- Grille de recettes -->
+        <div id="recipes-container" class="recipes-grid">
+            <!-- Les recettes seront chargées ici par JavaScript -->
+        </div>
+
+        <!-- Message si aucun résultat -->
+        <div id="no-results" class="no-results" style="display: none;">
+            <p>Aucune recette trouvée</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Mes Recettes</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        let toutesLesRecettes = [];
+
+        // Charger les recettes au chargement de la page
+        document.addEventListener('DOMContentLoaded', async () => {
+            const data = await chargerRecettes();
+            if (data) {
+                toutesLesRecettes = data.recettes;
+                afficherRecettes(toutesLesRecettes, 'recipes-container');
+            }
+
+            // Événements pour les filtres
+            document.getElementById('filter-category').addEventListener('change', appliquerFiltres);
+            document.getElementById('filter-difficulty').addEventListener('change', appliquerFiltres);
+            document.getElementById('filter-time').addEventListener('change', appliquerFiltres);
+            document.getElementById('filter-search').addEventListener('input', appliquerFiltres);
+        });
+
+        // Fonction pour appliquer les filtres
+        function appliquerFiltres() {
+            const category = document.getElementById('filter-category').value.toLowerCase();
+            const difficulty = document.getElementById('filter-difficulty').value.toLowerCase();
+            const timeFilter = document.getElementById('filter-time').value;
+            const searchText = document.getElementById('filter-search').value.toLowerCase();
+
+            let recettesFiltrees = toutesLesRecettes.filter(recette => {
+                // Filtre par catégorie
+                if (category && recette.catégorie.toLowerCase() !== category) {
+                    return false;
+                }
+
+                // Filtre par difficulté
+                if (difficulty && recette.difficulté.toLowerCase() !== difficulty) {
+                    return false;
+                }
+
+                // Filtre par temps
+                if (timeFilter) {
+                    const tempsTotal = recette.tempsPréparation + recette.tempsCuisson;
+                    if (timeFilter === '30' && tempsTotal >= 30) return false;
+                    if (timeFilter === '60' && (tempsTotal < 30 || tempsTotal > 60)) return false;
+                    if (timeFilter === '60+' && tempsTotal <= 60) return false;
+                }
+
+                // Filtre par recherche de texte
+                if (searchText && !recette.nom.toLowerCase().includes(searchText)) {
+                    return false;
+                }
+
+                return true;
+            });
+
+            // Afficher les résultats
+            if (recettesFiltrees.length > 0) {
+                afficherRecettes(recettesFiltrees, 'recipes-container');
+                document.getElementById('no-results').style.display = 'none';
+            } else {
+                document.getElementById('recipes-container').innerHTML = '';
+                document.getElementById('no-results').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>

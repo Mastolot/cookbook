@@ -1,0 +1,8 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="600" fill="#FBF8F3"/>
+  <circle cx="400" cy="250" r="120" fill="#E8B4A0" opacity="0.3"/>
+  <circle cx="400" cy="250" r="100" fill="#D4816F" opacity="0.5"/>
+  <text x="400" y="280" font-family="Arial, sans-serif" font-size="80" fill="#2C2C2C" text-anchor="middle">🍳</text>
+  <text x="400" y="400" font-family="Arial, sans-serif" font-size="32" fill="#6B6B6B" text-anchor="middle">Image de recette</text>
+  <text x="400" y="450" font-family="Arial, sans-serif" font-size="24" fill="#8B9556" text-anchor="middle">Ajoutez votre photo ici</text>
+</svg>
