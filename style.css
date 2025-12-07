@@ -567,6 +567,52 @@ img {
 }
 
 /* ==============================
+   CONSEILS
+   ============================== */
+
+.tips-section {
+  background-color: #FFF9E6;
+  border-left: 4px solid #FFB800;
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-2xl);
+}
+
+.tips-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: var(--space-md);
+  color: var(--text-primary);
+}
+
+.tips-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tip-item {
+  position: relative;
+  padding-left: var(--space-lg);
+  margin-bottom: var(--space-md);
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.tip-item::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #FFB800;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.tip-item:last-child {
+  margin-bottom: 0;
+}
+
+/* ==============================
    RECHERCHE PAR INGRÉDIENTS
    ============================== */
 

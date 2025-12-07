@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recette - Mes Recettes</title>
+    <title>Recette - Tom's Kitchen</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Crimson+Pro:wght@400;600;700&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
     <!-- Header / Navigation -->
     <header class="header">
         <div class="container">
-            <a href="index.html" class="logo">Mes Recettes</a>
+            <a href="index.html" class="logo">Tom's Kitchen</a>
             <nav class="nav">
                 <a href="index.html" class="nav-link">Accueil</a>
                 <a href="recettes.html" class="nav-link">Recettes</a>
@@ -40,7 +40,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Mes Recettes</p>
+            <p>&copy; 2024 Tom's Kitchen</p>
         </div>
     </footer>
 
@@ -144,6 +144,15 @@
                             ${recette.étapes.map(etape => `<li class="step-item">${etape}</li>`).join('')}
                         </ol>
                     </div>
+                    
+                    ${recette.conseils && recette.conseils.length > 0 ? `
+                    <div class="tips-section">
+                        <h2>💡 Conseils</h2>
+                        <ul class="tips-list">
+                            ${recette.conseils.map(conseil => `<li class="tip-item">${conseil}</li>`).join('')}
+                        </ul>
+                    </div>
+                    ` : ''}
                 </div>
 
                 <div class="text-center">

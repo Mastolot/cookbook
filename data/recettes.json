@@ -81,6 +81,44 @@
         "Garnir avec un filet de crème et de la coriandre fraîche ciselée. Servir chaud avec du naan, du riz basmati ou des chapatis."
       ],
       "tags": ["indien", "végétarien", "crémeux", "épicé", "nord-indien"]
+    },
+    {
+      "id": 3,
+      "nom": "Chicons Braisés Caramélisés",
+      "description": "Des chicons tendres et caramélisés, dorés à la poêle puis braisés dans leur jus avec oignons et ail. Cette technique fonctionne aussi avec carottes, poireaux ou autres légumes racines.",
+      "image": "images/id3.jpeg",
+      "tempsPréparation": 10,
+      "tempsCuisson": 40,
+      "portions": 4,
+      "difficulté": "facile",
+      "catégorie": "accompagnement",
+      "ingrédients": [
+        {"nom": "chicons (endives)", "quantité": 10, "unité": "pièces"},
+        {"nom": "huile d'olive", "quantité": 2, "unité": "c. à s."},
+        {"nom": "beurre", "quantité": 30, "unité": "g"},
+        {"nom": "oignon moyen", "quantité": 1, "unité": "pièce"},
+        {"nom": "gousses d'ail", "quantité": 3, "unité": "pièces"},
+        {"nom": "eau", "quantité": 200, "unité": "ml"},
+        {"nom": "sel", "quantité": 1, "unité": "pincée"},
+        {"nom": "poivre", "quantité": 1, "unité": "pincée"},
+        {"nom": "sucre", "quantité": 2, "unité": "c. à c."}
+      ],
+      "étapes": [
+        "Retirer les premières feuilles abîmées des chicons et couper la base si nécessaire. Les laisser entiers ou les couper en deux dans la longueur.",
+        "Dans une grande casserole ou sauteuse à feu moyen-vif (environ 2/3 de la puissance), chauffer l'huile. Disposer les chicons et les faire dorer 3-4 minutes de chaque côté jusqu'à obtenir une belle coloration. Ne pas brûler.",
+        "Baisser légèrement le feu, ajouter le beurre, l'oignon émincé et l'ail. Faire revenir 3-4 minutes jusqu'à ce que les oignons deviennent translucides.",
+        "Assaisonner généreusement de sel et poivre. Verser l'eau jusqu'à couvrir les chicons à mi-hauteur. Couvrir avec un couvercle et laisser mijoter à feu doux 25-30 minutes. Vérifier la cuisson : la pointe d'un couteau doit rentrer facilement dans le cœur du chicon.",
+        "En fin de cuisson, retirer le couvercle, ajouter le sucre et monter le feu. Laisser réduire le jus 2-3 minutes en arrosant régulièrement les chicons pour les glacer et les caraméliser légèrement.",
+        "Dresser les chicons avec le jus de cuisson réduit. Servir en accompagnement de viandes rôties, volaille ou poisson blanc."
+      ],
+      "conseils": [
+        "Choisir des chicons fermes et bien blancs",
+        "Ne pas hésiter à bien colorer au début, c'est là que se développe le goût",
+        "Si les chicons sont très amers, retirer le cône à la base avant cuisson",
+        "Le liquide doit réduire en fin de cuisson pour un résultat brillant et caramélisé",
+        "Alternative four : Transférer dans un plat allant au four, couvrir de papier alu et cuire à 180°C pendant 30-35 minutes"
+      ],
+      "tags": ["légume", "braisé", "accompagnement", "caramélisé", "belge"]
     }
   ]
 }
