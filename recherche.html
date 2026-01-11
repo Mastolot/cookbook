@@ -46,6 +46,10 @@
             <div class="search-actions">
                 <button id="search-button" class="btn btn-primary">Trouver des recettes</button>
                 <button id="clear-button" class="btn btn-secondary">Effacer</button>
+                <label class="checkbox-label" style="margin-left: 1rem;">
+                    <input type="checkbox" id="filter-vegetarian">
+                    <span>🥬 Végétarien uniquement</span>
+                </label>
             </div>
         </div>
 
@@ -164,7 +168,14 @@
                 return;
             }
 
-            const resultats = calculerCorrespondances(toutesLesRecettes, ingredientsSelectionnes);
+            // Filtrer d'abord par végétarien si nécessaire
+            const vegetarianOnly = document.getElementById('filter-vegetarian').checked;
+            let recettesARechercher = toutesLesRecettes;
+            if (vegetarianOnly) {
+                recettesARechercher = toutesLesRecettes.filter(r => r.tags.includes('végétarien'));
+            }
+
+            const resultats = calculerCorrespondances(recettesARechercher, ingredientsSelectionnes);
             
             if (resultats.length === 0) {
                 document.getElementById('search-results').innerHTML = '';

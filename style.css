@@ -399,6 +399,31 @@ img {
   border-color: var(--accent);
 }
 
+.filter-group.filter-checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  cursor: pointer;
+  font-weight: 500;
+  user-select: none;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.checkbox-label span {
+  font-size: 0.9rem;
+}
+
 /* ==============================
    PAGE DÉTAIL RECETTE
    ============================== */

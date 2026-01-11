@@ -140,7 +140,7 @@ function filtrerRecettesParNom(recettes, recherche) {
 }
 
 /**
- * Filtre les recettes par catégorie, difficulté et temps
+ * Filtre les recettes par catégorie, difficulté, temps et végétarien
  * @param {Array} recettes - Tableau de recettes
  * @param {Object} filtres - Objet contenant les filtres
  * @returns {Array} - Recettes filtrées
@@ -171,6 +171,11 @@ function filtrerRecettes(recettes, filtres) {
             if (!recette.nom.toLowerCase().includes(terme)) {
                 return false;
             }
+        }
+
+        // Filtre végétarien
+        if (filtres.vegetarien && !recette.tags.includes('végétarien')) {
+            return false;
         }
         
         return true;

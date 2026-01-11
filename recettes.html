@@ -61,6 +61,12 @@
                     <label for="filter-search">Recherche</label>
                     <input type="text" id="filter-search" placeholder="Nom de la recette...">
                 </div>
+                <div class="filter-group filter-checkbox">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="filter-vegetarian">
+                        <span>🥬 Végétarien uniquement</span>
+                    </label>
+                </div>
             </div>
         </div>
 
@@ -99,41 +105,20 @@
             document.getElementById('filter-difficulty').addEventListener('change', appliquerFiltres);
             document.getElementById('filter-time').addEventListener('change', appliquerFiltres);
             document.getElementById('filter-search').addEventListener('input', appliquerFiltres);
+            document.getElementById('filter-vegetarian').addEventListener('change', appliquerFiltres);
         });
 
         // Fonction pour appliquer les filtres
         function appliquerFiltres() {
-            const category = document.getElementById('filter-category').value.toLowerCase();
-            const difficulty = document.getElementById('filter-difficulty').value.toLowerCase();
-            const timeFilter = document.getElementById('filter-time').value;
-            const searchText = document.getElementById('filter-search').value.toLowerCase();
+            const filtres = {
+                categorie: document.getElementById('filter-category').value,
+                difficulte: document.getElementById('filter-difficulty').value,
+                temps: document.getElementById('filter-time').value,
+                recherche: document.getElementById('filter-search').value,
+                vegetarien: document.getElementById('filter-vegetarian').checked
+            };
 
-            let recettesFiltrees = toutesLesRecettes.filter(recette => {
-                // Filtre par catégorie
-                if (category && recette.catégorie.toLowerCase() !== category) {
-                    return false;
-                }
-
-                // Filtre par difficulté
-                if (difficulty && recette.difficulté.toLowerCase() !== difficulty) {
-                    return false;
-                }
-
-                // Filtre par temps
-                if (timeFilter) {
-                    const tempsTotal = recette.tempsPréparation + recette.tempsCuisson;
-                    if (timeFilter === '30' && tempsTotal >= 30) return false;
-                    if (timeFilter === '60' && (tempsTotal < 30 || tempsTotal > 60)) return false;
-                    if (timeFilter === '60+' && tempsTotal <= 60) return false;
-                }
-
-                // Filtre par recherche de texte
-                if (searchText && !recette.nom.toLowerCase().includes(searchText)) {
-                    return false;
-                }
-
-                return true;
-            });
+            const recettesFiltrees = filtrerRecettes(toutesLesRecettes, filtres);
 
             // Afficher les résultats
             if (recettesFiltrees.length > 0) {

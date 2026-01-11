@@ -118,7 +118,39 @@
         "Le liquide doit réduire en fin de cuisson pour un résultat brillant et caramélisé",
         "Alternative four : Transférer dans un plat allant au four, couvrir de papier alu et cuire à 180°C pendant 30-35 minutes"
       ],
-      "tags": ["légume", "braisé", "accompagnement", "caramélisé", "belge"]
+      "tags": ["légume", "braisé", "accompagnement", "caramélisé", "belge", "végétarien"]
+    },
+    {
+      "id": 4,
+      "nom": "Stoemp aux Carottes",
+      "description": "Un classique belge réconfortant : des pommes de terre et carottes mijotées puis légèrement écrasées avec du beurre et de la muscade. Rustique et savoureux.",
+      "image": "images/id4.jpg",
+      "tempsPréparation": 15,
+      "tempsCuisson": 30,
+      "portions": 4,
+      "difficulté": "facile",
+      "catégorie": "accompagnement",
+      "ingrédients": [
+        {"nom": "pommes de terre", "quantité": 1, "unité": "kg"},
+        {"nom": "carottes", "quantité": 600, "unité": "g"},
+        {"nom": "oignon", "quantité": 1, "unité": "pièce"},
+        {"nom": "bouillon de légumes", "quantité": 300, "unité": "ml"},
+        {"nom": "beurre", "quantité": 50, "unité": "g"},
+        {"nom": "huile", "quantité": 1, "unité": "c. à s."},
+        {"nom": "sel", "quantité": 1, "unité": "pincée"},
+        {"nom": "poivre", "quantité": 1, "unité": "pincée"},
+        {"nom": "noix de muscade", "quantité": 1, "unité": "pincée"}
+      ],
+      "étapes": [
+        "Éplucher les pommes de terre et les carottes. Couper les pommes de terre en dés de 1 à 2 cm. Faire de même avec les carottes. Émincer grossièrement l'oignon.",
+        "Dans un faitout, chauffer un peu d'huile et faire revenir l'oignon jusqu'à ce qu'il soit translucide. Ajouter les pommes de terre et les carottes, puis faire revenir quelques minutes.",
+        "Verser 300 ml de bouillon bouillant sur les légumes et couvrir. Laisser mijoter à feu doux à moyen jusqu'à ce que les carottes et les pommes de terre commencent à se défaire, sans que cela devienne une purée.",
+        "Ajuster l'assaisonnement avec le sel, le poivre et la noix de muscade. Incorporer une belle motte de beurre juste avant de servir et écraser légèrement à la fourchette."
+      ],
+      "conseils": [
+        "Le stoemp doit rester légèrement rustique avec des morceaux fondants, pas complètement écrasé comme une purée traditionnelle"
+      ],
+      "tags": ["légume", "belge", "accompagnement", "réconfortant", "végétarien"]
     }
   ]
 }
